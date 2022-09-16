@@ -12,11 +12,53 @@ const div_9 =document.getElementById('div_9');
 let counter=0;
 let array_red=[];
 let array_yellow=[];
-const array = ["123","456","789","147","258","369","159","357"];
-
-
+const array = ["123","456","789","147","258","369","159","357",
+                "321","654","987","741","852","963","951","753",
+                "213","546","879","417","528","639","519","537",
+                "231","564","897","471","582","693","591","573"];
+let score_red=0;
+let score_yellow=0;
+const restartGame=()=>{
+    array_red=[];
+    array_yellow=[];
+    counter=0;
+    
+}
+const addScoreRed=()=>{
+    score_red+=10;
+    result_red.innerText=`Result-red: ${score_red}`;
+    restartGame();
+}
+const addScoreYellow=()=>{
+    score_yellow+=10;
+    result_yellow.innerText=`Result-yellow: ${score_yellow}`;
+    restartGame();
+}
 const checkWinner = () =>{
-
+    if(array_red.length>=3){
+        let way='';
+        for(let i=array_red.length-3;i<array_red.length;i++){
+            way=way.concat(array_red[i]);
+        }
+        console.log(way);
+        for(let x of array){
+            if(way==x){
+                addScoreRed();
+            }
+        }
+    }
+    if(array_yellow.length>=3){
+        let way='';
+        for(let i=array_yellow.length-3;i<array_yellow.length;i++){
+            way=way.concat(array_yellow[i]);
+        }
+        console.log(way);
+        for(let x of array){
+            if(way==x){
+                addScoreYellow();
+            }
+        }
+    }
 }
 const addBackground = (div,num)=>{
 if(!(div.classList.contains("red-circle") || div.classList.contains("yellow-circle"))){
