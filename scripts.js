@@ -22,7 +22,14 @@ const restartGame=()=>{
     array_red=[];
     array_yellow=[];
     counter=0;
-    
+    array_divs=[div_1,div_2,div_3,div_4,div_5,div_6,div_7,div_8,div_9];
+    for (let x of array_divs){
+        if(x.classList.contains('yellow-circle')){
+            x.classList.remove('yellow-circle');
+        }else{
+            x.classList.remove('red-circle');
+        }
+    }
 }
 const addScoreRed=()=>{
     score_red+=10;
@@ -40,21 +47,20 @@ const checkWinner = () =>{
         for(let i=array_red.length-3;i<array_red.length;i++){
             way=way.concat(array_red[i]);
         }
-        console.log(way);
         for(let x of array){
-            if(way==x){
+            if(x==way){
                 addScoreRed();
             }
         }
     }
+
     if(array_yellow.length>=3){
         let way='';
         for(let i=array_yellow.length-3;i<array_yellow.length;i++){
             way=way.concat(array_yellow[i]);
         }
-        console.log(way);
         for(let x of array){
-            if(way==x){
+            if(x==way){
                 addScoreYellow();
             }
         }
@@ -71,6 +77,9 @@ if(!(div.classList.contains("red-circle") || div.classList.contains("yellow-circ
         array_yellow.push(num);
     }
     checkWinner();
+    if(counter==9){
+        restartGame();
+    }
 }
 }
 div_1.addEventListener('click',function(){
