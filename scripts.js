@@ -23,24 +23,23 @@ const p6=6;
 const p7=7;
 const p8=8;
 const p9=9;
-
 let score_red=0;
 let score_yellow=0;
 
 // Restart the game, so all backgrounds we return back as initial case.
-// const restartGame=()=>{
-//     array_red=[];
-//     array_yellow=[];
-//     counter=0;
-//     array_divs=[div_1,div_2,div_3,div_4,div_5,div_6,div_7,div_8,div_9];
-//     for (let x of array_divs){
-//         if(x.classList.contains('yellow-circle')){
-//             x.classList.remove('yellow-circle');
-//         }else{
-//             x.classList.remove('red-circle');
-//         }
-//     }
-// }
+const restartGame=()=>{
+    way_red='';
+    way_yellow='';
+    counter=0;
+    array_divs=[div_1,div_2,div_3,div_4,div_5,div_6,div_7,div_8,div_9];
+    for (let x of array_divs){
+        if(x.classList.contains('yellow-circle')){
+            x.classList.remove('yellow-circle');
+        }else{
+            x.classList.remove('red-circle');
+        }
+    }
+}
 
 // Add 10 bonus to red 
 const addScoreRed=()=>{
@@ -56,19 +55,21 @@ const addScoreYellow=()=>{
 }
 
 //Here, we are checking the winner after the length of picking up is 3, so, at least the user must pick up 3 positions in order to win.
-const checkWinner = () =>{
+const checkWinner = (way,circle) =>{
     if(way_red.length>=3){
-        if((way_red.includes(p1) && way_red.includes(p2) && way_red.includes(p3))
-        || (way_red.includes(p4) && way_red.includes(p5) && way_red.includes(p6))
-        || (way_red.includes(p7) && way_red.includes(p8) && way_red.includes(p9))
-        || (way_red.includes(p1) && way_red.includes(p4) && way_red.includes(p7))
-        || (way_red.includes(p2) && way_red.includes(p5) && way_red.includes(p8))
-        || (way_red.includes(p3) && way_red.includes(p6) && way_red.includes(p9))
-        || (way_red.includes(p1) && way_red.includes(p4) && way_red.includes(p7))
-        || (way_red.includes(p3) && way_red.includes(p5) && way_red.includes(p7))){
-            console.log("winner is red")
-    }
-    if(way_yellow.length>=3){
+        if((way.includes(p1) && way.includes(p2) && way.includes(p3))
+        || (way.includes(p4) && way.includes(p5) && way.includes(p6))
+        || (way.includes(p7) && way.includes(p8) && way.includes(p9))
+        || (way.includes(p1) && way.includes(p4) && way.includes(p7))
+        || (way.includes(p2) && way.includes(p5) && way.includes(p8))
+        || (way.includes(p3) && way.includes(p6) && way.includes(p9))
+        || (way.includes(p1) && way.includes(p5) && way.includes(p9))
+        || (way.includes(p3) && way.includes(p5) && way.includes(p7))){
+            if(circle=="red"){
+                addScoreRed();
+            }else{
+                addScoreYellow();
+            }
     }
 }
 }
@@ -83,12 +84,11 @@ if(!(div.classList.contains("red-circle") || div.classList.contains("yellow-circ
         div.classList.add("yellow-circle");
         way_yellow=`${way_yellow+num}`;
     }
-    checkWinner();
+    checkWinner(way_red,"red");
+    checkWinner(way_yellow,"yellow");
     if(counter==9){
-        // restartGame();
+        restartGame();
     }
-    console.log(way_red);
-    console.log(way_yellow);
 }
 }
 // Listener for div1
