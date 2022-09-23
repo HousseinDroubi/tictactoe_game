@@ -12,29 +12,35 @@ const div_8 =document.getElementById('div_8');
 const div_9 =document.getElementById('div_9');
 // Define all attributes to be used later on
 let counter=0;
-let array_red=[];
-let array_yellow=[];
-const array = ["123","456","789","147","258","369","159","357",
-                "321","654","987","741","852","963","951","753",
-                "213","546","879","417","528","639","519","537",
-                "231","564","897","471","582","693","591","573"];
+let way_red='';
+let way_yellow='';
+const p1=1;
+const p2=2;
+const p3=3;
+const p4=4;
+const p5=5;
+const p6=6;
+const p7=7;
+const p8=8;
+const p9=9;
+
 let score_red=0;
 let score_yellow=0;
 
 // Restart the game, so all backgrounds we return back as initial case.
-const restartGame=()=>{
-    array_red=[];
-    array_yellow=[];
-    counter=0;
-    array_divs=[div_1,div_2,div_3,div_4,div_5,div_6,div_7,div_8,div_9];
-    for (let x of array_divs){
-        if(x.classList.contains('yellow-circle')){
-            x.classList.remove('yellow-circle');
-        }else{
-            x.classList.remove('red-circle');
-        }
-    }
-}
+// const restartGame=()=>{
+//     array_red=[];
+//     array_yellow=[];
+//     counter=0;
+//     array_divs=[div_1,div_2,div_3,div_4,div_5,div_6,div_7,div_8,div_9];
+//     for (let x of array_divs){
+//         if(x.classList.contains('yellow-circle')){
+//             x.classList.remove('yellow-circle');
+//         }else{
+//             x.classList.remove('red-circle');
+//         }
+//     }
+// }
 
 // Add 10 bonus to red 
 const addScoreRed=()=>{
@@ -51,28 +57,20 @@ const addScoreYellow=()=>{
 
 //Here, we are checking the winner after the length of picking up is 3, so, at least the user must pick up 3 positions in order to win.
 const checkWinner = () =>{
-    if(array_red.length>=3){
-        let way='';
-        for(let i=array_red.length-3;i<array_red.length;i++){
-            way=way.concat(array_red[i]);
-        }
-        for(let x of array){
-            if(x==way){
-                addScoreRed();
-            }
-        }
+    if(way_red.length>=3){
+        if((way_red.includes(p1) && way_red.includes(p2) && way_red.includes(p3))
+        || (way_red.includes(p4) && way_red.includes(p5) && way_red.includes(p6))
+        || (way_red.includes(p7) && way_red.includes(p8) && way_red.includes(p9))
+        || (way_red.includes(p1) && way_red.includes(p4) && way_red.includes(p7))
+        || (way_red.includes(p2) && way_red.includes(p5) && way_red.includes(p8))
+        || (way_red.includes(p3) && way_red.includes(p6) && way_red.includes(p9))
+        || (way_red.includes(p1) && way_red.includes(p4) && way_red.includes(p7))
+        || (way_red.includes(p3) && way_red.includes(p5) && way_red.includes(p7))){
+            console.log("winner is red")
     }
-    if(array_yellow.length>=3){
-        let way='';
-        for(let i=array_yellow.length-3;i<array_yellow.length;i++){
-            way=way.concat(array_yellow[i]);
-        }
-        for(let x of array){
-            if(x==way){
-                addScoreYellow();
-            }
-        }
+    if(way_yellow.length>=3){
     }
+}
 }
 // Add background to the clicked position.
 const addBackground = (div,num)=>{
@@ -80,15 +78,17 @@ if(!(div.classList.contains("red-circle") || div.classList.contains("yellow-circ
     counter++;
     if(counter%2!=0){
         div.classList.add("red-circle");
-        array_red.push(num);
+        way_red=`${way_red+num}`;
     }else{
         div.classList.add("yellow-circle");
-        array_yellow.push(num);
+        way_yellow=`${way_yellow+num}`;
     }
     checkWinner();
     if(counter==9){
-        restartGame();
+        // restartGame();
     }
+    console.log(way_red);
+    console.log(way_yellow);
 }
 }
 // Listener for div1
